@@ -1,0 +1,18 @@
+$z-layers: (
+  "max": 9999,
+  "fullscreen": 1700,
+  "modal": (
+    "tooltip": 1600,
+    "popover": 1500,
+    "dropdown": 1400,
+    "content": 1300,
+    "overlay": 1200
+  ),
+  "header": 1000,
+  "tooltip": 600,
+  "dropdown": 300,
+  "base": 1
+);
+
+// Global colors
+$cgrey: #464646;
