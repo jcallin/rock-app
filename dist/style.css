@@ -1,11 +1,14 @@
+body {
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
 .App {
   font-family: "Opens Sans", sans-serif;
-  text-align: center;
-}
+  text-align: center; }
 
 .App-logo {
-  height: 40vmin;
-}
+  height: 40vmin; }
 
 .App-header {
   background-color: #282c34;
@@ -15,9 +18,9 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
-}
+  color: white; }
 
 .App-link {
-  color: #09d3ac;
-}
+  color: #09d3ac; }
+
+/*# sourceMappingURL=style.css.map*/

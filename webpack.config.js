@@ -8,7 +8,7 @@ module.exports = (env, argv) => {
   console.log(`Build mode is: ${argv.mode}`);
 
   return {
-    devtool: "inline-source-map",
+    devtool: dev ? "source-map" : "none",
     devServer: {
       historyApiFallback: true,
       contentBase: path.join(__dirname, "dist"),
@@ -47,10 +47,11 @@ module.exports = (env, argv) => {
           exclude: /node_modules/
         },
         {
+          // Load local fonts (unused), you should probably just load them from google though
           test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
           use: [
             {
-              loader: "url-loader"
+              loader: "file-loader"
             }
           ]
         }

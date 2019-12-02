@@ -1,5 +1,7 @@
 # react-typescript-template
 
+[![Build Status](https://travis-ci.org/jcallin/react-typescript-template.svg?branch=master)](https://travis-ci.org/jcallin/react-typescript-template)
+
 This project is a starter template for Typescript projects
 
 ## Usage
