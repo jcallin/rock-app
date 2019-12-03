@@ -20,7 +20,7 @@
     "build:prod": "webpack --mode production",
     "build:dev": "webpack --mode development",
     "start:dev": "webpack-dev-server --display-error-details --mode=development --watch --live-reload=true",
-    "test": "jest --passWithNoTests"
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -43,7 +43,12 @@
     ]
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.3",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
     "css-loader": "2.1.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "enzyme-to-json": "^3.4.3",
     "eslint": "^6.1.0",
     "eslint-config-react-app": "^5.0.2",
     "eslint-loader": "3.0.2",
@@ -67,6 +72,7 @@
     "react-app-polyfill": "^1.0.4",
     "react-dev-utils": "^9.1.0",
     "react-dom": "^16.12.0",
+    "react-test-renderer": "^16.12.0",
     "sass-loader": "^7.2.0",
     "style-loader": "1.0.0",
     "terser-webpack-plugin": "1.4.1",

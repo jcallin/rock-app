@@ -1,7 +1,7 @@
 module.exports = {
   roots: ["<rootDir>/src"],
   collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}", "!src/**/*.d.ts"],
-  setupFiles: ["react-app-polyfill/jsdom"],
+  setupFiles: ["<rootDir>/config/setupEnzyme.ts"],
   testMatch: [
     "**/__tests__/**/*.+(ts|tsx|js)",
     "**/?(*.)+(spec|test).+(ts|tsx|js)"
@@ -30,5 +30,8 @@ module.exports = {
   watchPlugins: [
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname"
-  ]
+  ],
+
+  // Setup Enzyme
+  snapshotSerializers: ["enzyme-to-json/serializer"]
 };
