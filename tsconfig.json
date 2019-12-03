@@ -10,7 +10,7 @@
     "moduleResolution": "node",
     "outDir": "./dist/",
     "resolveJsonModule": true,
-    "sourceMap": true,
+    // "sourceMap": true,
     // "isolatedModules": true,
     "jsx": "react"
   },
