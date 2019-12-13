@@ -1,18 +1,11 @@
 import React from "react";
-import logo from "../../media/logo.svg";
 import "../scss/components/App.scss";
+import SearchBox from "./SearchBox";
 
-const App: React.FC = () => {
+export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </header>
+      <SearchBox />
     </div>
   );
-};
-
-export default App;
+}
