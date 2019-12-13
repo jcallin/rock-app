@@ -1,23 +1,22 @@
 .App {
   font-family: "Opens Sans", sans-serif;
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-}
+  // display: grid;
+  // grid-gap: 10px;
+  // grid-template-columns: repeat(12, 1fr);
+  // grid-template-rows: repeat(12, 1fr);
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+  width: 100vg;
+  height: 100vh;
 
-.App-link {
-  color: #09d3ac;
+  background-color: #fff;
+  color: #444;
+
+  .box {
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 150%;
+  }
 }
