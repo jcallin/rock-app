@@ -1,287 +1,243 @@
 {
-	"info": {
-		"_postman_id": "71d63aa1-82dd-44eb-9710-2529e9a26689",
-		"name": "rock-app",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "ES template",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"settings\": {\n    \"index\": {\n      \"analysis\": {\n      \t\"normalizer\": {\n      \t\t\"case_insensitive\": {\n      \t\t\t\"type\": \"custom\",\n      \t\t\t\"char_filter\": [],\n      \t\t\t\"filter\": [\"lowercase\"]\n      \t\t}\n      \t},\n        \"filter\": {},\n        \"analyzer\": {\n          \"analyzer_keyword\": {\n            \"tokenizer\": \"keyword\",\n            \"filter\": \"lowercase\"\n          },\n          \"edge_ngram_analyzer\": {\n            \"filter\": [\n              \"lowercase\"\n            ],\n            \"tokenizer\": \"edge_ngram_tokenizer\"\n          }\n        },\n        \"tokenizer\": {\n          \"edge_ngram_tokenizer\": {\n            \"type\": \"edge_ngram\",\n            \"min_gram\": 2,\n            \"max_gram\": 5,\n            \"token_chars\": [\n              \"letter\"\n            ]\n          }\n        }\n      }\n    }\n  },\n  \"mappings\": {\n      \"properties\": {\n        \"name\": {\n          \"type\": \"text\",\n          \"analyzer\": \"edge_ngram_analyzer\"\n        },\n        \"aka\": {\n          \"type\": \"keyword\",\n          \"normalizer\": \"case_insensitive\"\n        },\n        \"descriptionShort\": {\n           \"type\": \"text\"\n        },\n        \"descriptionLong\": {\n           \"type\": \"text\"\n        },\n        \"imageRef\": {\n        \t\"type\": \"keyword\"\n        },\n        \"submitter\": {\n        \t\"type\": \"keyword\"\n        },\n        \"creationDate\": {\n        \t\"type\": \"date\"\n        }\n      }\n    }\n}"
-				},
-				"url": {
-					"raw": "http://localhost:9200/terms/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"terms",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update mappings",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n      \"properties\": {\n        \"name\": {\n          \"type\": \"text\",\n          \"analyzer\": \"edge_ngram_analyzer\"\n        },\n        \"aka\": {\n          \"type\": \"keyword\",\n          \"normalizer\": \"case_insensitive\"\n        },\n        \"descriptionShort\": {\n           \"type\": \"text\"\n        },\n        \"descriptionLong\": {\n           \"type\": \"text\"\n        },\n        \"imageRef\": {\n        \t\"type\": \"keyword\"\n        },\n        \"submitter\": {\n        \t\"type\": \"keyword\"\n        },\n        \"creationDate\": {\n        \t\"type\": \"date\"\n        }\n      }\n}"
-				},
-				"url": {
-					"raw": "http://localhost:9200/terms/_mapping",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"terms",
-						"_mapping"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update settings",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"index\": {\n      \"analysis\": {\n      \t\"normalizer\": {\n      \t\t\"case_insensitive\": {\n      \t\t\t\"type\": \"custom\",\n      \t\t\t\"char_filter\": [],\n      \t\t\t\"filter\": [\"lowercase\"]\n      \t\t}\n      \t},\n        \"filter\": {},\n        \"analyzer\": {\n          \"analyzer_keyword\": {\n            \"tokenizer\": \"keyword\",\n            \"filter\": \"lowercase\"\n          },\n          \"edge_ngram_analyzer\": {\n            \"filter\": [\n              \"lowercase\"\n            ],\n            \"tokenizer\": \"edge_ngram_tokenizer\"\n          }\n        },\n        \"tokenizer\": {\n          \"edge_ngram_tokenizer\": {\n            \"type\": \"edge_ngram\",\n            \"min_gram\": 2,\n            \"max_gram\": 5,\n            \"token_chars\": [\n              \"letter\"\n            ]\n          }\n        }\n      }\n    }\n}"
-				},
-				"url": {
-					"raw": "http://localhost:9200/terms/_settings",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"terms",
-						"_settings"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Index open/close",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:9200/terms/_open",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"terms",
-						"_open"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Reindex",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"source\": {\n\t\t\"index\": \"new_terms\"\n\t},\n\t\"dest\": {\n\t\t\"index\": \"terms\"\n\t}\n}"
-				},
-				"url": {
-					"raw": "http://localhost:9200/_reindex",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"_reindex"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:9200/new_terms/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"new_terms",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Add term 1",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "    {\n      \"name\": \"PAS\",\n      \"aka\": [\"personal anchor\", \"personal anchor system\"],\n      \"descriptionShort\": \"Personal anchor system\",\n      \"descriptionLong\": \"Anchors the climber, hands free, to an anchor\",\n      \"imageRef\": \"asdf\",\n      \"submitter\": \"Julian\",\n      \"creationDate\": \"2019-01-11\"\n    }"
-				},
-				"url": {
-					"raw": "http://localhost:9200/terms/_doc",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"terms",
-						"_doc"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Add term 2",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "    {\n      \"name\": \"Cam\",\n      \"aka\": [\"Camalot\", \"Friend\"],\n      \"descriptionShort\": \"Camalot active protection\",\n      \"descriptionLong\": \"A mechanical, metal lobed form of active protection for trad climbing\",\n      \"imageRef\": \"asdf\",\n      \"submitter\": \"Julian\",\n      \"creationDate\": \"2019-02-11\"\n    }"
-				},
-				"url": {
-					"raw": "http://localhost:9200/terms/_doc",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"terms",
-						"_doc"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Search term",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"query\": {\n    \"match\": {\n      \"name\": \"Cam\"\n   }\n  },\n  \"sort\": [\"_score\"]\n}"
-				},
-				"url": {
-					"raw": "http://localhost:9200/terms/_search",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"terms",
-						"_search"
-					]
-				}
-			},
-			"response": []
-		}
-	]
+  "info": {
+    "_postman_id": "71d63aa1-82dd-44eb-9710-2529e9a26689",
+    "name": "rock-app",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "ES template",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"settings\": {\n    \"index\": {\n      \"analysis\": {\n      \t\"normalizer\": {\n      \t\t\"case_insensitive\": {\n      \t\t\t\"type\": \"custom\",\n      \t\t\t\"char_filter\": [],\n      \t\t\t\"filter\": [\"lowercase\"]\n      \t\t}\n      \t},\n        \"filter\": {},\n        \"analyzer\": {\n          \"analyzer_keyword\": {\n            \"tokenizer\": \"keyword\",\n            \"filter\": \"lowercase\"\n          },\n          \"edge_ngram_analyzer\": {\n            \"filter\": [\n              \"lowercase\"\n            ],\n            \"tokenizer\": \"edge_ngram_tokenizer\"\n          }\n        },\n        \"tokenizer\": {\n          \"edge_ngram_tokenizer\": {\n            \"type\": \"edge_ngram\",\n            \"min_gram\": 2,\n            \"max_gram\": 5,\n            \"token_chars\": [\n              \"letter\"\n            ]\n          }\n        }\n      }\n    }\n  },\n  \"mappings\": {\n      \"properties\": {\n        \"name\": {\n          \"type\": \"text\",\n          \"analyzer\": \"edge_ngram_analyzer\"\n        },\n        \"aka\": {\n          \"type\": \"keyword\",\n          \"normalizer\": \"case_insensitive\"\n        },\n        \"descriptionShort\": {\n           \"type\": \"text\"\n        },\n        \"descriptionLong\": {\n           \"type\": \"text\"\n        },\n        \"imageRef\": {\n        \t\"type\": \"keyword\"\n        },\n        \"submitter\": {\n        \t\"type\": \"keyword\"\n        },\n        \"creationDate\": {\n        \t\"type\": \"date\"\n        }\n      }\n    }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:9200/terms/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9200",
+          "path": ["terms", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update mappings",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n      \"properties\": {\n        \"name\": {\n          \"type\": \"text\",\n          \"analyzer\": \"edge_ngram_analyzer\"\n        },\n        \"aka\": {\n          \"type\": \"keyword\",\n          \"normalizer\": \"case_insensitive\"\n        },\n        \"descriptionShort\": {\n           \"type\": \"text\"\n        },\n        \"descriptionLong\": {\n           \"type\": \"text\"\n        },\n        \"imageRef\": {\n        \t\"type\": \"keyword\"\n        },\n        \"submitter\": {\n        \t\"type\": \"keyword\"\n        },\n        \"creationDate\": {\n        \t\"type\": \"date\"\n        }\n      }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:9200/terms/_mapping",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9200",
+          "path": ["terms", "_mapping"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update settings",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"index\": {\n      \"analysis\": {\n      \t\"normalizer\": {\n      \t\t\"case_insensitive\": {\n      \t\t\t\"type\": \"custom\",\n      \t\t\t\"char_filter\": [],\n      \t\t\t\"filter\": [\"lowercase\"]\n      \t\t}\n      \t},\n        \"filter\": {},\n        \"analyzer\": {\n          \"analyzer_keyword\": {\n            \"tokenizer\": \"keyword\",\n            \"filter\": \"lowercase\"\n          },\n          \"edge_ngram_analyzer\": {\n            \"filter\": [\n              \"lowercase\"\n            ],\n            \"tokenizer\": \"edge_ngram_tokenizer\"\n          }\n        },\n        \"tokenizer\": {\n          \"edge_ngram_tokenizer\": {\n            \"type\": \"edge_ngram\",\n            \"min_gram\": 2,\n            \"max_gram\": 5,\n            \"token_chars\": [\n              \"letter\"\n            ]\n          }\n        }\n      }\n    }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:9200/terms/_settings",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9200",
+          "path": ["terms", "_settings"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Index open/close",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:9200/terms/_open",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9200",
+          "path": ["terms", "_open"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reindex",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"source\": {\n\t\t\"index\": \"new_terms\"\n\t},\n\t\"dest\": {\n\t\t\"index\": \"terms\"\n\t}\n}"
+        },
+        "url": {
+          "raw": "http://localhost:9200/_reindex",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9200",
+          "path": ["_reindex"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:9200/new_terms/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9200",
+          "path": ["new_terms", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add term 1",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "    {\n      \"name\": \"PAS\",\n      \"aka\": [\"personal anchor\", \"personal anchor system\"],\n      \"descriptionShort\": \"Personal Anchor System\",\n      \"descriptionLong\": \"Anchors the climber, hands free, to an anchor\",\n      \"imageRef\": \"asdf\",\n      \"submitter\": \"Julian\",\n      \"creationDate\": \"2019-01-11\"\n    }"
+        },
+        "url": {
+          "raw": "http://localhost:9200/terms/_doc",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9200",
+          "path": ["terms", "_doc"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add term 2",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "    {\n      \"name\": \"Cam\",\n      \"aka\": [\"camalot\", \"friend\"],\n      \"descriptionShort\": \"Camalot active protection\",\n      \"descriptionLong\": \"A mechanical, metal lobed form of active protection for trad climbing\",\n      \"imageRef\": \"asdf\",\n      \"submitter\": \"Julian\",\n      \"creationDate\": \"2019-02-11\"\n    }"
+        },
+        "url": {
+          "raw": "http://localhost:9200/terms/_doc",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9200",
+          "path": ["terms", "_doc"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search term",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": {\n    \"match\": {\n      \"name\": \"Cam\"\n   }\n  },\n  \"sort\": [\"_score\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:9200/terms/_search",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9200",
+          "path": ["terms", "_search"]
+        }
+      },
+      "response": []
+    }
+  ]
 }
