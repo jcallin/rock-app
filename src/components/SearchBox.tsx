@@ -4,7 +4,7 @@ import Autosuggest from "react-autosuggest";
 import axios from "axios";
 import { debounce } from "throttle-debounce";
 
-import "../scss/components/SeachBox.scss";
+import "../scss/components/SearchBox.scss";
 
 type Term = {
   name: string;
@@ -20,8 +20,26 @@ type TermList = Array<Term>;
 
 type MyState = {
   value: string;
-  suggestions: Array<String>;
+  suggestions: Array<Term>;
 };
+
+function styles(ref: string) {
+  return {
+    backgroundImage: `url(${ref})`
+  };
+}
+
+function renderSuggestion(suggestion: Term) {
+  return (
+    <div className="suggestion-content">
+      <span
+        className="suggestion-image"
+        style={styles(suggestion.imageRef)}
+      ></span>
+      <span className="suggestion-list-term">{suggestion.name}</span>
+    </div>
+  );
+}
 
 class SearchBox extends React.Component<{}, MyState> {
   state = {
@@ -49,20 +67,22 @@ class SearchBox extends React.Component<{}, MyState> {
   };
 
   onSuggestionsFetchRequested = ({ value }: { value: string }) => {
-    axios
-      .post("http://localhost:9200/terms/_search", {
-        query: {
-          multi_match: {
-            query: value,
-            fields: ["name", "aka"]
-          }
-        },
-        sort: ["_score"]
-      })
-      .then(res => {
-        const results = res.data.hits.hits.map((h: any) => h._source);
-        this.setState({ suggestions: results });
-      });
+    if (value.length > 1) {
+      axios
+        .post("http://localhost:9200/terms/_search", {
+          query: {
+            multi_match: {
+              query: value,
+              fields: ["name", "aka"]
+            }
+          },
+          sort: ["_score"]
+        })
+        .then(res => {
+          const results = res.data.hits.hits.map((h: any) => h._source);
+          this.setState({ suggestions: results });
+        });
+    }
   };
 
   onSuggestionsClearRequested = () => {
@@ -81,16 +101,14 @@ class SearchBox extends React.Component<{}, MyState> {
     return (
       <div className="search-box">
         <h1>Search for knowledge</h1>
-        <div className="autosuggest-container">
-          <Autosuggest
-            suggestions={suggestions}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={(term: Term) => term.name}
-            renderSuggestion={this.renderSuggestion}
-            inputProps={inputProps}
-          />
-        </div>
+        <Autosuggest
+          suggestions={suggestions}
+          renderSuggestion={renderSuggestion}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          getSuggestionValue={(term: Term) => term.name}
+          inputProps={inputProps}
+        />
       </div>
     );
   }
