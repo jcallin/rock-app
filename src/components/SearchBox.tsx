@@ -1,8 +1,7 @@
-/* eslint-disable no-use-before-define */
 import React from "react";
 import Autosuggest from "react-autosuggest";
 import axios from "axios";
-import { debounce } from "throttle-debounce";
+import { throttle, debounce } from "throttle-debounce";
 
 import "../scss/components/SearchBox.scss";
 
@@ -15,8 +14,6 @@ type Term = {
   submitter: string;
   creationDate: string;
 };
-
-type TermList = Array<Term>;
 
 type MyState = {
   value: string;
@@ -46,13 +43,6 @@ class SearchBox extends React.Component<{}, MyState> {
     value: "",
     suggestions: []
   };
-
-  componentDidUpdate() {
-    this.onSuggestionsFetchRequested = debounce(
-      500,
-      this.onSuggestionsFetchRequested
-    );
-  }
 
   renderSuggestion = (term: Term) => {
     return (
@@ -85,6 +75,23 @@ class SearchBox extends React.Component<{}, MyState> {
     }
   };
 
+  onSuggestionsFetchRequestedDebounced = debounce(
+    500,
+    this.onSuggestionsFetchRequested
+  );
+  onSuggestionsFetchRequestedThrottled = throttle(
+    500,
+    this.onSuggestionsFetchRequested
+  );
+
+  onSuggestionsFetchRequestedImproved = ({ value }: { value: string }) => {
+    if (value.length < 4) {
+      return this.onSuggestionsFetchRequestedThrottled({ value });
+    } else {
+      return this.onSuggestionsFetchRequestedDebounced({ value });
+    }
+  };
+
   onSuggestionsClearRequested = () => {
     this.setState({ suggestions: [] });
   };
@@ -104,7 +111,7 @@ class SearchBox extends React.Component<{}, MyState> {
         <Autosuggest
           suggestions={suggestions}
           renderSuggestion={renderSuggestion}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequestedImproved}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           getSuggestionValue={(term: Term) => term.name}
           inputProps={inputProps}
