@@ -33,7 +33,10 @@ function renderSuggestion(suggestion: Term) {
         className="suggestion-image"
         style={styles(suggestion.imageRef)}
       ></span>
-      <span className="suggestion-list-term">{suggestion.name}</span>
+      <div className="suggestion-term-name">{suggestion.name}</div>
+      <div className="suggestion-term-description">
+        {suggestion.descriptionLong}
+      </div>
     </div>
   );
 }
