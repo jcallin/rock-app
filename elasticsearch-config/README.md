@@ -1,5 +1,4 @@
 # Initializing data
 
-Use `pyhocon` (`npm install -g pyhocon`) to convert the `initial-data.conf` to json for storing, inserting to Elasticsearch, etc
-
-`cat initial-data.conf | pyhocon -f json`
+run `docker-compose up -d` while in the root directory of the project to bring up Elasticsearch. It will take ~30 seconds
+run `sh initialize-elasticearch.sh` in this directory to initialize Elasticsearch with some test data
