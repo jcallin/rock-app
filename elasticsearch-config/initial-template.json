@@ -1,0 +1,62 @@
+{
+  "index_patterns": ["terms"],
+  "settings": {
+    "index": {
+      "analysis": {
+        "normalizer": {
+          "case_insensitive": {
+            "type": "custom",
+            "char_filter": [],
+            "filter": ["lowercase"]
+          }
+        },
+        "filter": {},
+        "analyzer": {
+          "analyzer_keyword": {
+            "tokenizer": "keyword",
+            "filter": "lowercase"
+          },
+          "edge_ngram_analyzer": {
+            "filter": ["lowercase"],
+            "tokenizer": "edge_ngram_tokenizer"
+          }
+        },
+        "tokenizer": {
+          "edge_ngram_tokenizer": {
+            "type": "edge_ngram",
+            "min_gram": 2,
+            "max_gram": 5,
+            "token_chars": ["letter"]
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text",
+        "analyzer": "edge_ngram_analyzer"
+      },
+      "aka": {
+        "type": "keyword",
+        "normalizer": "case_insensitive"
+      },
+      "descriptionShort": {
+        "type": "text"
+      },
+      "descriptionLong": {
+        "type": "text"
+      },
+      "imageRef": {
+        "type": "keyword"
+      },
+      "submitter": {
+        "type": "keyword"
+      },
+      "creationDate": {
+        "type": "date"
+      }
+    }
+  }
+}
