@@ -20,7 +20,7 @@ type MyState = {
   suggestions: Array<Term>;
 };
 
-function styles(ref: string) {
+function getImageStyle(ref: string) {
   return {
     backgroundImage: `url(${ref})`
   };
@@ -31,7 +31,7 @@ function renderSuggestion(suggestion: Term) {
     <div className="suggestion-content">
       <span
         className="suggestion-image"
-        style={styles(suggestion.imageRef)}
+        style={getImageStyle(suggestion.imageRef)}
       ></span>
       <div className="suggestion-term-name">
         {suggestion.name}
