@@ -33,7 +33,15 @@ function renderSuggestion(suggestion: Term) {
         className="suggestion-image"
         style={styles(suggestion.imageRef)}
       ></span>
-      <span className="suggestion-list-term">{suggestion.name}</span>
+      <div className="suggestion-term-name">
+        {suggestion.name}{" "}
+        <span className="suggestion-term-aka">
+          {suggestion.aka.map(s => `"${s}" `)}
+        </span>
+      </div>
+      <div className="suggestion-term-description">
+        {suggestion.descriptionLong}
+      </div>
     </div>
   );
 }
