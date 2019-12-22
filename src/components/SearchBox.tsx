@@ -34,7 +34,7 @@ function renderSuggestion(suggestion: Term) {
         style={styles(suggestion.imageRef)}
       ></span>
       <div className="suggestion-term-name">
-        {suggestion.name}{" "}
+        {suggestion.name}
         <span className="suggestion-term-aka">
           {suggestion.aka.map(s => `"${s}" `)}
         </span>
