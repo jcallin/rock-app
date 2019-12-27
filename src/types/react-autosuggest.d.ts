@@ -1,1 +1,3 @@
-declare module "react-autosuggest";
+declare module "react-autosuggest" {
+  export = Autosuggest;
+}
