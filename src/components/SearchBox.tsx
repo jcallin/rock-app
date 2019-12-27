@@ -3,7 +3,7 @@ import Autosuggest from "react-autosuggest";
 import axios from "axios";
 import { throttle, debounce } from "throttle-debounce";
 
-import "../scss/components/SearchBox.scss";
+import AddTermButton from "./AddTermButton";
 
 type Term = {
   name: string;
@@ -15,10 +15,12 @@ type Term = {
   creationDate: string;
 };
 
-type MyState = {
+type SearchBoxState = {
   value: string;
   suggestions: Array<Term>;
 };
+
+type SearchBoxProps = {};
 
 function getImageStyle(ref: string) {
   return {
@@ -46,18 +48,17 @@ function renderSuggestion(suggestion: Term) {
   );
 }
 
-class SearchBox extends React.Component<{}, MyState> {
+class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
+  private inputRef: React.RefObject<Autosuggest>;
+
+  constructor(props: SearchBoxProps) {
+    super(props);
+    this.inputRef = React.createRef<Autosuggest>();
+  }
+
   state = {
     value: "",
     suggestions: []
-  };
-
-  renderSuggestion = (term: Term) => {
-    return (
-      <div className="result">
-        <div>{term.name}</div>
-      </div>
-    );
   };
 
   onChange = (_: any, { newValue }: { newValue: string }) => {
@@ -104,6 +105,11 @@ class SearchBox extends React.Component<{}, MyState> {
     this.setState({ suggestions: [] });
   };
 
+  componentDidMount() {
+    const node = this.inputRef.current!;
+    node.focus;
+  }
+
   render() {
     const { value, suggestions } = this.state;
 
@@ -117,6 +123,7 @@ class SearchBox extends React.Component<{}, MyState> {
       <div className="search-box">
         <h1>Search for knowledge</h1>
         <Autosuggest
+          ref={this.inputRef}
           suggestions={suggestions}
           renderSuggestion={renderSuggestion}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequestedImproved}
@@ -124,6 +131,7 @@ class SearchBox extends React.Component<{}, MyState> {
           getSuggestionValue={(term: Term) => term.name}
           inputProps={inputProps}
         />
+        <AddTermButton />
       </div>
     );
   }
