@@ -2,15 +2,19 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import * as R from "ramda";
+import moment from "moment";
+
+import { Term } from "../types/types";
 
 export default function AddTermForm() {
-  const initialValues = {
+  const initialValues: Term = {
     name: "",
     aka: [],
     descriptionShort: "",
     descriptionLong: "",
     imageRef: "",
-    submitter: ""
+    submitter: "",
+    creationDate: moment().calendar()
   };
 
   const renderInputErrors = (errors: any, touched: any) => {
