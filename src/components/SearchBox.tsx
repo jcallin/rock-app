@@ -1,26 +1,18 @@
 import React from "react";
 import Autosuggest from "react-autosuggest";
-import axios from "axios";
 import { throttle, debounce } from "throttle-debounce";
 
 import AddTermButton from "./AddTermButton";
 
-type Term = {
-  name: string;
-  aka: Array<string>;
-  descriptionShort: string;
-  descriptionLong: string;
-  imageRef: string;
-  submitter: string;
-  creationDate: string;
-};
+import { Term } from "../types/types";
+import { fetchSuggestions } from "../actions/Elasticsearch";
 
-type SearchBoxState = {
+export interface SearchBoxState {
   value: string;
   suggestions: Array<Term>;
-};
+}
 
-type SearchBoxProps = {};
+export interface SearchBoxProps {}
 
 function getImageStyle(ref: string) {
   return {
@@ -65,39 +57,11 @@ class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
     this.setState({ value: newValue });
   };
 
-  onSuggestionsFetchRequested = ({ value }: { value: string }) => {
-    if (value.length > 1) {
-      axios
-        .post("http://localhost:9200/terms/_search", {
-          query: {
-            multi_match: {
-              query: value,
-              fields: ["name", "aka"]
-            }
-          },
-          sort: ["_score"]
-        })
-        .then(res => {
-          const results = res.data.hits.hits.map((h: any) => h._source);
-          this.setState({ suggestions: results });
-        });
-    }
-  };
-
-  onSuggestionsFetchRequestedDebounced = debounce(
-    500,
-    this.onSuggestionsFetchRequested
-  );
-  onSuggestionsFetchRequestedThrottled = throttle(
-    500,
-    this.onSuggestionsFetchRequested
-  );
-
   onSuggestionsFetchRequestedImproved = ({ value }: { value: string }) => {
     if (value.length < 4) {
-      return this.onSuggestionsFetchRequestedThrottled({ value });
+      return throttle(500, fetchSuggestions(this))({ value });
     } else {
-      return this.onSuggestionsFetchRequestedDebounced({ value });
+      return debounce(500, fetchSuggestions(this))({ value });
     }
   };
 
